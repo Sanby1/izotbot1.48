@@ -4,10 +4,26 @@ import json
 import os
 import random
 import time
+import threading
 import discord
 from discord import app_commands
 from discord.ext import commands, tasks
-import os
+from flask import Flask
+
+# --- FLASK WEB SUNUCUSU (Render & UptimeRobot İçin) ---
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot 7/24 Aktif!", 200
+
+def run_flask():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
+
+# --- Intents ---
+intents = discord.Intents.default()
+# GERİSİ AYNEN DEVAM EDECEK... (intents.members = True ile başlayan kısım)
 
 intents = discord.Intents.default()
 intents.members = True
