@@ -1298,10 +1298,11 @@ async def setup(bot_instance: commands.Bot):
     await bot_instance.add_cog(CommandsCog(bot_instance))
     print("Commands loaded / Komutlar yüklendi.")
 
+async def setup(bot_instance: commands.Bot):
+    await bot_instance.add_cog(CommandsCog(bot_instance))
+
 async def main():
-    
-async def main():
-    # Flask sunucusunu arka planda uyanık tutmak için başlatıyoruz
+    # Flask sunucusunu uyanık tutmak için arka planda başlatıyoruz
     threading.Thread(target=run_flask, daemon=True).start()
 
     # Tokeni Render'daki Environment Variables kısmından çekiyoruz
@@ -1315,7 +1316,7 @@ async def main():
         await setup(bot)
         try:
             print("Bot bağlanıyor...")
-            await bot.start(token)  # bot.run yerine await bot.start kullanıyoruz
+            await bot.start(token)
         except Exception as e:
             print(f"Başlangıç hatası: {e}")
 
