@@ -1296,10 +1296,6 @@ async def on_voice_state_update(member: discord.Member, before: discord.VoiceSta
 
 async def setup(bot_instance: commands.Bot):
     await bot_instance.add_cog(CommandsCog(bot_instance))
-    print("Commands loaded / Komutlar yüklendi.")
-
-async def setup(bot_instance: commands.Bot):
-    await bot_instance.add_cog(CommandsCog(bot_instance))
 
 async def main():
     # Flask sunucusunu uyanık tutmak için arka planda başlatıyoruz
