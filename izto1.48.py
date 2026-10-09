@@ -1300,13 +1300,28 @@ async def setup(bot_instance: commands.Bot):
 
 async def main():
     
-    bot.run(os.environ.get('DISCORD_TOKEN')) 
+async def main():
+    # Flask sunucusunu arka planda uyanık tutmak için başlatıyoruz
+    threading.Thread(target=run_flask, daemon=True).start()
 
-   
+    # Tokeni Render'daki Environment Variables kısmından çekiyoruz
+    token = os.getenv("DISCORD_TOKEN")
+
+    if not token:
+        print("\n[HATA] DISCORD_TOKEN bulunamadı! Render paneline ekleyin.\n")
+        return
+
+    async with bot:
+        await setup(bot)
+        try:
+            print("Bot bağlanıyor...")
+            await bot.start(token)  # bot.run yerine await bot.start kullanıyoruz
+        except Exception as e:
+            print(f"Başlangıç hatası: {e}")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         save_data()
-        print("\nShutting down, data saved... / Kapatılıyor, veriler kaydedildi...")
+        print("\nVeriler kaydedildi, kapatılıyor...")
